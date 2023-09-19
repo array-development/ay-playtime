@@ -22,10 +22,10 @@ end)
 
 -- // [EVENTS] \\ --
 
-AddEventHandler('esx:playerLoaded', function(src, PlayerData)
+AddEventHandler('esx:playerLoaded', function(src)
     if source == 0 or source == '' then
         MySQL.scalar('SELECT `playtime` FROM `users` WHERE `identifier` = ? LIMIT 1', {
-            PlayerData.identifier
+            GetPlayerIdentifiers(src)[1]
         }, function(result)
             if not playerData[src] then 
                 playerData[src] = {}
@@ -60,9 +60,9 @@ end)
 
 -- // [COMMANDS] \\ --
 
-ESX.RegisterCommand({'playtime', 'pt'}, 'user', function(xPlayer, args, showError)
-    TriggerClientEvent('chat:addMessage', xPlayer.source, { args = { 'You have a total of ' ..secondsToClock(playerData[xPlayer.source]['playtime']) .. ' playtime!' }})
-end, false, { help = 'Show your playtime of the server.' })
+RegisterCommand('playtime', function(source, args, rawCommand)
+    TriggerClientEvent('chat:addMessage', source, { args = { 'You have a total of ' ..secondsToClock(playerData[source]['playtime']) .. ' playtime!' }})
+end)
 
 -- // [FUNCTIONS] \\ --
 
