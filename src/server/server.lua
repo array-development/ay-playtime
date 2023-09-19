@@ -8,11 +8,7 @@ CreateThread(function()
     while true do 
         for i=1, #playerData do 
             if playerData[i] then 
-                local timeNow = os.time()
-                local time = tonumber(timeNow - playerData[i]['actualTime'])
-                local allTime = time + playerData[i]['playtime']
-
-                playerData[i]['playtime'] = allTime
+                playerData[i]['playtime'] = playerData[i]['playtime'] + 15
             end
         end
         
